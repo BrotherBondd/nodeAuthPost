@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+    <div class="container my-4" style="height: 100vh; overflow: hidden;">
+        <div class="row g-6">
+            <% posts.forEach((post)=> { %>
+                <div class="col-lg-6">
+                    <div class="card shadow" style="height: 100%;" >
+                        <img src="/uploads/<%= post.image %>" class="img-fluid card-img-top" alt="<%= post.title %>" style="height: 200px; object-fit: cover;" >
+                        <div class="card-body p-4" style="overflow: hidden;">
+                            <h2 class="card-title fw-bold text-secondary">
+                                <%= post.title %>
+                            </h2>
+                            <p class="card-text">
+                                <%= post.content.substring(0, 200) %>...
+                            </p>
+                            <div>
+                                <a href="/post/<%= post.slug %>" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex align-items-center justify-content-between text-muted">
+                                <div>Author: <%= post.user.name %>
+                                </div>
+                                <div>Created: <%= post.createdAt.toLocaleString() %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+        <div class="my-4 float-end d-inline-flex align-items-center gap-4">
+            <span>Page <%= pagination.currentPage %> of <%= pagination.totalPage %> </span>
+            <% if(pagination.hasPrevPage){ %>
+                <div>
+                    <a href="/?page=<%=
+             pagination.prevPage %>" class="btn btn-secondary">Previous</a>
+                </div>
+                <% } %>
+
+
+                
+                    <% if(pagination.hasNextPage){ %>
+                        <div>
+                            <a href="/?page=<%=
+                 pagination.nextPage %>" class="btn btn-secondary">Next</a>
+                        </div>
+                        <% } %>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
